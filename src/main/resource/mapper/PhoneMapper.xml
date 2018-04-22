@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.montnets.dao.ValidPhoneDao">
+	<resultMap id="BaseResultMap" type="com.montnets.bean.ValidPhone">
+		<result column="id" property="id" />
+		<result column="phone" property="phone" />
+		<result column="mbstatus" property="mbstatus" />
+		<result column="smsstatus" property="smsstatus" />
+		<result column="rmsst_a" property="rmsst_a" />
+		<result column="rmsst_dla" property="rmsst_dla" />
+		<result column="rmsst_b" property="rmsst_b" />
+		<result column="rmsst_dlb" property="rmsst_dlb" />
+		<result column="rmsst_c" property="rmsst_c" />
+		<result column="rmsst_dlc" property="rmsst_dlc" />
+		<result column="createtm" property="createtm" />
+		<result column="lastupdatetm" property="lastupdatetm" />
+		<result column="lastdltm" property="lastdltm" />
+		<result column="phoneos" property="phoneos" />
+		<result column="osver" property="osver" />
+		<result column="brand" property="brand" />
+		<result column="model" property="model" />
+		<result column="xbrowser" property="xbrowser" />
+		<result column="imei" property="imei" />
+		<result column="imsi" property="imsi" />
+		<result column="meid" property="meid" />
+		<result column="resolution" property="resolution" />
+		<result column="sn" property="sn" />
+		<result column="mac" property="mac" />
+		<result column="sdkver" property="sdkver" />
+		<result column="isupflag" property="isupflag" />
+		<result column="rptfreq" property="rptfreq" />
+		<result column="rptway" property="rptway" />
+		<result column="upsrc" property="upsrc" />
+		<result column="lastrpttm" property="lastrpttm" />
+		<result column="mobilecountry" property="mobilecountry" />
+		<result column="mobiletype" property="mobiletype" />
+		<result column="mobilearea" property="mobilearea" />
+	</resultMap>
+
+	<parameterMap id="ValidPhone" type="com.montnets.bean.ValidPhone"/>
+
+	<sql id="Base_Column_List">
+		id,phone,mbstatus,smsstatus,rmsst_a,rmsst_dla,rmsst_b,rmsst_dlb,rmsst_c,rmsst_dlc,
+		createtm,lastupdatetm,lastdltm,phoneos,osver,brand,model,xbrowser,imei,imsi,meid,
+		resolution,sn,mac,sdkver,isupflag ,rptfreq,rptway,upsrc,lastrpttm,mobilecountry,
+		mobiletype,mobilearea
+	</sql>
+	
+	
+	<insert id="insert"  parameterType="ValidPhone" useGeneratedKeys="true" keyProperty="id">
+		insert into PB_VALID_PHONE
+		(phone,status,rmsstatus,rmsfg,phoneos,xbrowser,osver,brand,model,imei,imsi,lastupdatetm,createtm,lastdltm,ischange)
+		values
+	   (#{phone},#{status},#{rmsstatus},#{rmsfg},#{phoneos},#{xbrowser},#{osver},#{brand},#{model},#{imei},#{imsi},SYSDATETIME(),SYSDATETIME(),'1900-01-01 00:00:00.000',#{ischange})
+		
+	</insert>
+
+
+	<update id="updateByPrimaryKey" parameterMap="ValidPhone">
+		update
+			PB_VALID_PHONE
+		set
+		<if test="provinceId!=null">
+			province_id = #{provinceId},
+		</if>
+		<if test="cityName!=null">
+			city_name = #{cityName},
+		</if>
+		<if test="description!=null">
+			description = #{description}
+		</if>
+		where
+			id = #{id}
+	</update>
+
+
+<select id="findVaildPhone" resultMap="BaseResultMap" parameterType="ValidPhone">
+		select
+		<!-- * -->
+		<include refid="Base_Column_List" />
+		from PB_BASIC_PHONE A
+		where 1=1
+		<if test="phone!=null and phone>-1">
+			and phone = #{phone}
+		</if>
+		<if test="mbstatus!=null and mbstatus>-1">
+			and mbstatus = #{mbstatus}
+		</if>
+		<if test="smsstatus!=null and smsstatus>-1">
+			and smsstatus = #{smsstatus}
+		</if>
+		
+		<if test="rmsst_a!=null and rmsst_a>-1">
+			and rmsst_a = #{rmsst_a}
+		</if>
+		<if test="rmsst_dla!=null and rmsst_dla>-1">
+			and rmsst_dla = #{rmsst_dla}
+		</if>
+		<if test="rmsst_b!=null and rmsst_b>-1">
+			and rmsst_b = #{rmsst_b}
+		</if>
+		
+		<if test="rmsst_dlb!=null and rmsst_dlb>-1">
+			and rmsst_dlb = #{rmsst_dlb}
+		</if>
+		<if test="rmsst_c!=null and rmsst_c>-1">
+			and rmsst_c = #{rmsst_c}
+		</if>
+		
+		<if test="rmsst_dlc!=null and rmsst_dlc>-1">
+			and rmsst_dlc = #{rmsst_dlc}
+		</if>	
+		
+		
+		<if test="isupflag!=null and isupflag>-1">
+			and isupflag = #{isupflag}
+		</if>
+		<if test="rptfreq!=null and rptfreq>-1">
+			and rptfreq = #{rptfreq}
+		</if>
+		<if test="upsrc!=null and upsrc>-1">
+			and upsrc = #{upsrc}
+		</if>	
+		
+		
+		<if test="startlastupdatetm!=null and startlastupdatetm!=''">
+			and lastupdatetm <![CDATA[>]]> #{startlastupdatetm}
+		</if>
+		
+		<if test="endlastupdatetm!=null and endlastupdatetm!=''">
+			and lastupdatetm <![CDATA[<=]]> #{endlastupdatetm}  
+		</if>
+		
+		<!-- 将下载时间改为创建时间  -->
+		<if test="startlastdltm!=null and startlastdltm!=''">
+			and createtm <![CDATA[>]]> #{startlastdltm}
+		</if>
+		
+		<if test="endlastdltm!=null and endlastdltm!=''">
+			and createtm <![CDATA[<=]]> #{endlastdltm} 
+			AND createtm > '1900-01-01 00:00:00.000'
+		</if>
+		
+		
+		<if test="phoneos!=null and phoneos>-1">
+			and phoneos = #{phoneos}
+		</if>
+		
+		<if test="osver!=null and osver!=''">
+			and osver = #{osver}
+		</if>
+		
+		<if test="brand!=null and brand!=''">
+			and brand = #{brand}
+		</if>
+		
+		<if test="model!=null and model!=''">
+			and model = #{model}
+		</if>
+		
+		order by createtm desc
+	</select>
+	
+	
+
+</mapper>

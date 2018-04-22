@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.montnets.dao.ValidPhoneHisDao">
+	<resultMap id="BaseResultMap" type="com.montnets.bean.ValidPhoneHis">
+		<result column="phone" property="phone" />
+		<result column="phoneos" property="phoneos" />
+		<result column="osver" property="osver" />
+		<result column="brand" property="brand" />
+		<result column="model" property="model" />
+		<result column="imei" property="imei" />
+		<result column="imsi" property="imsi" />
+		<result column="meid" property="meid" />
+		<result column="sn" property="sn" />
+		<result column="mac" property="mac" />
+		<result column="resolution" property="resolution" />
+		<result column="mbstatus" property="mbstatus" />
+		<result column="smsstatus" property="smsstatus" />
+		<result column="rmsst_a" property="rmsst_a" />
+		<result column="rmsst_dla" property="rmsst_dla" />
+		<result column="rmsst_b" property="rmsst_b" />
+		<result column="rmsst_dlb" property="rmsst_dlb" />
+		<result column="rmsst_c" property="rmsst_c" />
+		<result column="rmsst_dlc" property="rmsst_dlc" />
+		<result column="upsrc" property="upsrc" />
+		<result column="createtm" property="createtm" />
+	</resultMap>
+
+	<parameterMap id="ValidPhoneHis" type="com.montnets.bean.ValidPhoneHis"/>
+
+	<sql id="Base_Column_List">
+		phone, phoneos, osver, brand,model,imei,imsi,meid,sn,mac,resolution,
+		mbstatus,smsstatus,rmsst_a,rmsst_dla,rmsst_b,rmsst_dlb,rmsst_c,rmsst_dlc,upsrc,createtm 
+	</sql>
+
+	
+	<select id="findByPhone" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		FROM PB_PHONE_HIS A where phone=#{phone}		
+		order by createtm desc 
+	</select>
+
+
+	
+	
+
+</mapper>

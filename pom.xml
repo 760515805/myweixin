@@ -1,0 +1,194 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.montnets.my_weixin</groupId>
+  <artifactId>my_weixin</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>  
+
+  <name>fuxinServer</name>
+  <url>http://maven.apache.org</url>
+ 
+   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <fastjson>1.2.41</fastjson>
+    <springBoot>2.0.1.RELEASE</springBoot>
+    <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
+    <logback>1.2.3</logback>
+    <slf4j>1.7.25</slf4j>
+     <dom4j>1.6.1</dom4j>
+     <druid.version>1.1.9</druid.version>
+     <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  
+  <dependencies>
+    	 <dependency>
+    <groupId>dom4j</groupId>
+    <artifactId>dom4j</artifactId>
+    <version>${dom4j}</version>
+</dependency>
+
+        			<!-- jdbc驱动包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.37</version>
+		</dependency>
+    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${springBoot}</version>
+    </dependency>
+    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			 <version>${springBoot}</version>
+			<scope>test</scope>
+	</dependency>  
+	   
+	 <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+              <version>${springBoot}</version>
+            <optional>true</optional> 
+     </dependency>  
+	
+      <!-- Spring Boot Mybatis 依赖 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-boot}</version>
+        </dependency>
+    
+    
+        <!--fastjson 相关jar -->
+	<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson}</version>
+	 </dependency>
+	 
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+
+	<!--日志  -->
+    <dependency>
+   	 <groupId>org.slf4j</groupId>
+   	 <artifactId>slf4j-api</artifactId>
+   	 <version>${slf4j}</version>
+	</dependency>
+    
+    
+    <dependency>
+    	<groupId>ch.qos.logback</groupId>
+    	<artifactId>logback-classic</artifactId>
+    	<version>${logback}</version>
+	</dependency>
+    
+    <dependency>
+    	<groupId>ch.qos.logback</groupId>
+    	<artifactId>logback-core</artifactId>
+    	<version>${logback}</version>
+	</dependency>   
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.7</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.10</version>
+	</dependency>
+	<!-- 邮件模块,留着备用 -->
+		<dependency>
+    			<groupId>javax.mail</groupId>
+   				 <artifactId>mail</artifactId>
+   				 <version>1.4.7</version>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+        
+	<!-- quartz -->  
+   <dependency>  
+        <groupId>org.quartz-scheduler</groupId>  
+            <artifactId>quartz</artifactId>  
+            <version>2.3.0</version>  
+       </dependency>  
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>5.0.5.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.0.5.RELEASE</version>
+        </dependency>
+  </dependencies>
+  	
+   <build>
+       <resources>  
+			<resource>  
+                <directory>src/main/resource/mapper</directory>  
+                <includes>  
+                    <include>*.xml</include>
+                </includes>  
+                 <targetPath>${project.build.directory}/classes/mapper</targetPath>
+                <filtering>false</filtering>  
+            </resource>
+            
+            <resource>  
+                <directory>src/main/resource</directory>  
+                <includes>  
+                    <include>*.properties</include>  
+                    <include>*.xml</include>
+                    <include>*.tld</include>
+                </includes>  
+                <filtering>false</filtering>  
+            </resource>
+		</resources>  
+   
+
+   
+   <defaultGoal>compile</defaultGoal>
+		<sourceDirectory>src</sourceDirectory>
+		<finalName>myweixin</finalName>
+		 <plugins>
+         <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin </artifactId>
+            <configuration>
+		      <fork>true</fork>
+		      <mainClass>com.montnets.App</mainClass>
+		    </configuration>
+		     <executions>
+			     <execution>
+			       <goals>
+			         <goal>repackage</goal>
+			       </goals>
+			     </execution>
+			   </executions>
+        </plugin> 
+       </plugins>
+	</build> 
+    <repositories>  
+     <repository>  
+            <id>spring-milestone</id>  
+            <url>http://repo.spring.io/libs-release</url>  
+     </repository>  
+   </repositories> 
+   
+   
+</project>
