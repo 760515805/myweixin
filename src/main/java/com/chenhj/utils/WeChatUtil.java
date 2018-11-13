@@ -67,7 +67,7 @@ public class WeChatUtil {
      * @param byteArray
      * @return
      */
-    private static String byteToStr(byte[] byteArray) {
+    public static String byteToStr(byte[] byteArray) {
         String strDigest = "";
         for (int i = 0; i < byteArray.length; i++) {
             strDigest += byteToHexStr(byteArray[i]);
@@ -91,7 +91,7 @@ public class WeChatUtil {
         return s;
     }
 
-    private static void sort(String a[]) {
+    public static void sort(String a[]) {
         for (int i = 0; i < a.length - 1; i++) {
             for (int j = i + 1; j < a.length; j++) {
                 if (a[j].compareTo(a[i]) < 0) {

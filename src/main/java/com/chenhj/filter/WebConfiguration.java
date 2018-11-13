@@ -2,10 +2,6 @@ package com.chenhj.filter;
 
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,18 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.chenhj.config.IpConstans;
-import com.chenhj.constant.Constans;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -39,8 +29,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class WebConfiguration {
 	private static final Logger logger = LoggerFactory.getLogger(WebConfiguration.class);
-	@Autowired  
-    private IpConstans ipconfig;
+	//@Autowired  
+   // private IpConstans ipconfig;
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -61,9 +51,9 @@ public class WebConfiguration {
 		public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
 				throws IOException, ServletException {
 			HttpServletRequest request = (HttpServletRequest) srequest;
-			HttpServletResponse response = (HttpServletResponse) sresponse;
+			//HttpServletResponse response = (HttpServletResponse) sresponse;
 			//执行过滤操作...
-			logger.info("请求的url :"+request.getRemoteAddr());
+			logger.debug("请求的url :"+request.getRemoteAddr());
 			//检查是否是白名单的IP
 //			if(!checkIP(request,response)){
 //				return;
@@ -82,34 +72,34 @@ public class WebConfiguration {
 		}
     }
     
-     private boolean checkIP(HttpServletRequest request,HttpServletResponse response){
-    	  String ip = getIpAddr(request);
-          // 获取可以访问系统的白名单
-          String ipStr = ipconfig.getIpWhiteList();
-          String[] ipArr = ipStr.split(Constans.SEPERATOR_SPLIT);
-          List<String> ipList = Arrays.asList(ipArr);
-          if (ipList.contains(ip)) {
-          	  logger.info("该IP: " + ip+"通过!");
-              return true;
-          } else {
-              logger.info("该IP: " + ip+"不通过!");
-          	try {
-              response.setCharacterEncoding("UTF-8");
-              response.setContentType("application/json; charset=utf-8");
-              // 消息
-              Map<String, Object> messageMap = new HashMap<>();
-              messageMap.put("status", "1");
-              messageMap.put("message", "您好，ip为" + ip + ",暂时没有访问权限，请联系管理员开通访问权限。");
-              ObjectMapper objectMapper=new ObjectMapper();
-              String writeValueAsString;
-			  writeValueAsString = objectMapper.writeValueAsString(messageMap);
-              response.getWriter().write(writeValueAsString);
-        	 } catch (Exception e) {
-        		 logger.error("响应失败!",e);
-			 }
-              return false;
-          }
-     }
+//     private boolean checkIP(HttpServletRequest request,HttpServletResponse response){
+//    	  String ip = getIpAddr(request);
+//          // 获取可以访问系统的白名单
+//          String ipStr = ipconfig.getIpWhiteList();
+//          String[] ipArr = ipStr.split(Constans.SEPERATOR_SPLIT);
+//          List<String> ipList = Arrays.asList(ipArr);
+//          if (ipList.contains(ip)) {
+//          	  logger.info("该IP: " + ip+"通过!");
+//              return true;
+//          } else {
+//              logger.info("该IP: " + ip+"不通过!");
+//          	try {
+//              response.setCharacterEncoding("UTF-8");
+//              response.setContentType("application/json; charset=utf-8");
+//              // 消息
+//              Map<String, Object> messageMap = new HashMap<>();
+//              messageMap.put("status", "1");
+//              messageMap.put("message", "您好，ip为" + ip + ",暂时没有访问权限，请联系管理员开通访问权限。");
+//              ObjectMapper objectMapper=new ObjectMapper();
+//              String writeValueAsString;
+//			  writeValueAsString = objectMapper.writeValueAsString(messageMap);
+//              response.getWriter().write(writeValueAsString);
+//        	 } catch (Exception e) {
+//        		 logger.error("响应失败!",e);
+//			 }
+//              return false;
+//          }
+//     }
      
 
      /**
@@ -118,7 +108,7 @@ public class WebConfiguration {
       * @param request
       * @return
       */
-     private  String getIpAddr(HttpServletRequest request) {
+     public  String getIpAddr(HttpServletRequest request) {
          String ip = request.getHeader("X-Forwarded-For");
          if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
              ip = request.getHeader("Proxy-Client-IP");

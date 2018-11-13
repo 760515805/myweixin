@@ -7,9 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
@@ -188,24 +185,24 @@ public class GZipUtils {
 		File file = new File(path);
 		decompress(file, delete);
 	}
-	public static void main(String[] args){
-		String json = "{\"androidSdk\":22,\"androidVer\":\"5.1\",\"cpTime\":1612071603,\"cupABIs\":[\"armeabi-v7a\",\"armeabi\"],\"customId\":\"QT99999\",\"elfFlag\":false,\"id\":\"4a1b644858d83a98\",\"imsi\":\"460015984967892\",\"system\":true,\"systemUser\":true,\"test\":true,\"model\":\"Micromax R610\",\"netType\":0,\"oldVersion\":\"0\",\"pkg\":\"com.adups.fota.sysoper\",\"poll_time\":30,\"time\":1481634113876,\"timeZone\":\"Asia\\/Shanghai\",\"versions\":[{\"type\":\"gatherApks\",\"version\":1},{\"type\":\"kernel\",\"version\":9},{\"type\":\"shell\",\"version\":10},{\"type\":\"silent\",\"version\":4},{\"type\":\"jarUpdate\",\"version\":1},{\"type\":\"serverIps\",\"version\":1}]}";
-		json="ksjdflkjsdflskjdflsdfkjsdf";
-		try {
-			byte[] buf = GZipUtils.compress(json);
-			
-			File fin = new File("D:/temp/test4.txt");
-			FileChannel fcout = new RandomAccessFile(fin, "rws").getChannel();
-			ByteBuffer wBuffer = ByteBuffer.allocateDirect(buf.length);
-			fcout.write(wBuffer.wrap(buf), fcout.size());
-			if (fcout != null) {
-				fcout.close();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args){
+//		String json = "{\"androidSdk\":22,\"androidVer\":\"5.1\",\"cpTime\":1612071603,\"cupABIs\":[\"armeabi-v7a\",\"armeabi\"],\"customId\":\"QT99999\",\"elfFlag\":false,\"id\":\"4a1b644858d83a98\",\"imsi\":\"460015984967892\",\"system\":true,\"systemUser\":true,\"test\":true,\"model\":\"Micromax R610\",\"netType\":0,\"oldVersion\":\"0\",\"pkg\":\"com.adups.fota.sysoper\",\"poll_time\":30,\"time\":1481634113876,\"timeZone\":\"Asia\\/Shanghai\",\"versions\":[{\"type\":\"gatherApks\",\"version\":1},{\"type\":\"kernel\",\"version\":9},{\"type\":\"shell\",\"version\":10},{\"type\":\"silent\",\"version\":4},{\"type\":\"jarUpdate\",\"version\":1},{\"type\":\"serverIps\",\"version\":1}]}";
+//		json="ksjdflkjsdflskjdflsdfkjsdf";
+//		try {
+//			byte[] buf = GZipUtils.compress(json);
+//			
+//			File fin = new File("D:/temp/test4.txt");
+//			FileChannel fcout = new RandomAccessFile(fin, "rws").getChannel();
+//			ByteBuffer wBuffer = ByteBuffer.allocateDirect(buf.length);
+//			fcout.write(wBuffer.wrap(buf), fcout.size());
+//			if (fcout != null) {
+//				fcout.close();
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	/**
 	 * 数据解压缩
 	 * 

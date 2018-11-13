@@ -24,7 +24,7 @@ import com.chenhj.utils.WeChatUtil;
 public class WeChatInitController {
 		@Autowired
 	    private IWeChatMpService weChatService;
-		  private final Logger logger = LoggerFactory.getLogger(this.getClass());
+		 private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	    /**
 	     * 处理微信服务器发来的get请求，进行签名的验证
@@ -43,7 +43,7 @@ public class WeChatInitController {
 	          @RequestParam(name = "nonce", required = false) String nonce,
 	          @RequestParam(name = "echostr", required = false) String echostr) {
 
-	        this.logger.info("\n接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature,
+	        logger.info("\n接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature,
 	            timestamp, nonce, echostr);
 
 	        if (StringUtils.isAnyBlank(signature, timestamp, nonce, echostr)) {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cmdDealToES" default="zip" basedir=".">
+	<property name="build" value="build" />
+	<property name="target" value="target" />
+	<property name="word" value="docs/V1.0"/>
+	<property name="jar_version" value="号码清除工具服务V1.0(build 1)" />
+	<property name="routine" value="build/${jar_version}/程序包"/>
+	<property name="doc" value="build/${jar_version}/文档" />
+	
+	<target name="clean">
+		<delete dir="${target}" />
+		<delete dir="${build}" />
+		<delete dir="${routine}" />
+		<delete dir="${doc}" />
+		<delete dir="${script}" />
+	</target>
+
+	<target name="create-path" depends="clean">
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/${jar_version}" />
+	</target>
+
+	<target name="mvn_package" depends="create-path">
+		<exec executable="cmd" failonerror="true">
+			<arg line="/c mvn clean package" />
+		</exec>
+	</target>
+
+	<target name="copyAll" depends="mvn_package">
+		<copy todir="${routine}" file="${target}/phoneDataClean.jar"></copy> 
+		<copy todir="${routine}" file="config.properties"></copy>
+		<copy todir="${routine}" file="id.properties"></copy>
+		<copy todir="${routine}" file="logback.xml"></copy>
+		<copy todir="${routine}" file="version.txt"></copy>
+		<copy todir="${routine}" file="run.sh"></copy>
+		<copy todir="${routine}" file="stop.sh"></copy>
+		
+		<copy todir="${doc}" file="${word}/号码清除工具服务-改动说明.docx"></copy>
+		<copy todir="${doc}" file="${word}/号码清除工具服务-升级指导.docx"></copy>
+		<copy todir="${doc}" file="${word}/号码清除工具服务-验证方法.docx"></copy>
+		
+	</target>
+	
+	<!--文件打包-->
+	 <target name="zip" depends="copyAll">
+        <zip destfile="build/${jar_version}.zip" basedir="${build}" excludes=".svn"/>
+    </target>
+	
+	<target name="cleanFiles" depends="zip">
+		<delete dir="${build}/${jar_version}" />
+	</target>
+	
+</project>
